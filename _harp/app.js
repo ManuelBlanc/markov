@@ -1,20 +1,20 @@
 (function(window, d3, _) { "use strict";
 
-function animate(chunk) {
+function animate(chunk, tickrate) {
 	var isRunning = true;
 	var requestId = null;
 	var quanta = 0;
 	var last = 0;
 
-	var TICK_RATE = 1/3;
+	tickrate = tickrate || 1/10;
 
 	var wrapper = function(now) {
 		var dt = (now - last) * 0.001;
 		last = now;
-		quanta += Math.min(dt, TICK_RATE);
-		while (quanta >= TICK_RATE) {
-			chunk(TICK_RATE);
-			quanta -= TICK_RATE;
+		quanta += Math.min(dt, tickrate);
+		while (quanta >= tickrate) {
+			chunk(tickrate);
+			quanta -= tickrate;
 		}
 		if (isRunning) requestId = requestAnimationFrame(wrapper);
 	}
@@ -263,6 +263,13 @@ Graph.prototype.step = function(dt, duration) {
 d3.json("markov.json", function(error, data) {
 	if (error) throw error;
 
+	var editor = CodeMirror.fromTextArea(document.getElementById("graphJSON"), {
+		mode: "application/json",
+		theme: "monokai",
+		lineNumbers: true,
+		dragDrop: false, // WTF?
+	});
+
 	var width = 960;
 	var height = 500;
 
@@ -285,7 +292,6 @@ d3.json("markov.json", function(error, data) {
 		.append("path")
 			.attr("class", "marker")
 			.attr("d", "M 0,-2 L 5,0 L 0,2");
-
 
 	var g = new Graph({
 		nodes: data.nodes,
@@ -316,18 +322,10 @@ d3.json("markov.json", function(error, data) {
 	d3.select("#reset").on("click", function() {
 		stopAnimation();
 		g.reset();
-		var data = JSON.parse(d3.select("#graphJSON").property("value"));
-		console.log(data)
+		var text = editor.getValue();
+		var data = JSON.parse(text);
 		g.setData(data);
 	});
-});
-
-
-CodeMirror.fromTextArea(document.getElementById("graphJSON"), {
-	mode: "application/json",
-	theme: "monokai",
-	lineNumbers: true,
-	dragDrop: false, // WTF?
 });
 
 
