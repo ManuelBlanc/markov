@@ -1,0 +1,63 @@
+.controls {
+	margin-top: 5px;
+	margin-left: 5px;
+	position: absolute;
+	width: 30px;
+	z-index: 5;
+
+	button {
+		width: 30px;
+		font-size: 11px;
+	}
+}
+
+.container {
+	width: 960px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 75px;
+}
+
+svg {
+	border: 1px solid black;
+}
+textarea {
+	font-family: monospace;
+	font-size: 16px;
+	
+	box-sizing: border-box;
+	width: 960px;
+	height: 500px;
+	margin-top: 15px;
+}
+
+.node {
+	//opacity: 0.1;
+
+	cursor: grab;
+	&:active { cursor: grabbing; }
+
+	circle {
+		stroke: #fff;
+		stroke-width: 1.5px;
+	}
+	text {
+		fill: #fff;
+		pointer-events: none;
+		text-anchor: middle;
+		&.label   { font-size: 1.5em; }
+		&.percent { font-size: 1em; }
+	}
+}
+
+marker {
+	fill: #333;
+}
+
+.link {
+	fill: none;
+	stroke: #333;
+	stroke-width: 1.5px;
+	marker-end: url(#arrow);
+}

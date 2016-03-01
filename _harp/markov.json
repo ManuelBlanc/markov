@@ -1,0 +1,27 @@
+{   
+	"nodes": [
+		{"name": "A", "value": 1},
+		{"name": "B", "value": 0},
+		{"name": "C", "value": 0},
+		{"name": "D", "value": 0},
+		{"name": "E", "value": 0}
+	],
+	"links": [
+		{"source": 0, "target": 1, "p": 0.9},
+		{"source": 0, "target": 4, "p": 0.1},
+
+		{"source": 1, "target": 2, "p": 0.75},
+		{"source": 1, "target": 0, "p": 0.25},
+
+		{"source": 2, "target": 3, "p": 0.01},
+		{"source": 2, "target": 1, "p": 0.98},
+		{"source": 2, "target": 2, "p": 0.91},
+
+		{"source": 3, "target": 4, "p": 0.4},
+		{"source": 3, "target": 2, "p": 0.6},
+
+		{"source": 4, "target": 4, "p": 0.99},
+		{"source": 4, "target": 0, "p": 0.01}
+
+	]
+}
